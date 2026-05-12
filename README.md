@@ -1,73 +1,28 @@
-# React + TypeScript + Vite
+# Splunk Indexer Cluster Automation Platform 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack, enterprise-grade orchestration engine designed to automate the deployment, configuration, and management of Splunk Enterprise environments. This platform integrates with the Corporate Cloud Manager (CCM) API to provision cloud infrastructure and dynamically bootstraps Splunk Validated Architectures (SVAs) without manual SSH intervention.
 
-Currently, two official plugins are available:
+## ✨ Key Features
+* **Dynamic SVA Routing:** Automatically provisions Standalone (S1), standard Distributed Clusters (C3), or executes advanced manual clustering pipelines for high Replication Factor (RF > 3) environments.
+* **Real-Time Orchestration Terminal:** Streams deep OS-level and Splunk daemon execution logs directly to the UI via WebSockets.
+* **Zero-Touch Configuration:** Automatically injects `props.conf` and `transforms.conf` into dynamically generated Splunk Apps (`/opt/splunk/etc/apps/`) post-installation.
+* **Role-Based Access Control (RBAC):** Distinct `admin` (Root Access) and `user` workflows for secure infrastructure management and visibility.
+* **Intelligent Recommendation Engine:** Calculates estimated storage, CPU/RAM sizing, and node counts based on selected RF/SF parameters.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+* **Frontend:** React, TypeScript, Vite, Tailwind CSS v4, Lucide Icons
+* **Backend:** Python, FastAPI, WebSockets, SQLAlchemy, SQLite
+* **Orchestration:** Paramiko (Async SSH), Requests (CCM API integration)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ⚙️ Local Setup & Installation
 
-## Expanding the ESLint configuration
+### Prerequisites
+* [Node.js](https://nodejs.org/) (v18+)
+* [Python](https://www.python.org/downloads/) (v3.9+)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Dushyanth777/Indexer_Cluster_Automation.git
+cd Indexer_Cluster_Automation
