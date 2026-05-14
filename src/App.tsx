@@ -200,20 +200,44 @@ function Dashboard({ auth }: any) {
                       <div className="flex space-x-6">
                         <div className="flex-1 border border-green-900/50 p-4">
                           <div className="text-green-800 tracking-widest text-[10px] uppercase mb-3 font-bold border-b border-green-900/50 pb-2">Network Topology</div>
-                          {dep.instances_data?.map((inst:any, j:number) => (
-                            <div key={j} className="flex justify-between items-center mb-2 p-2 hover:bg-[#0a0a0a] border border-transparent hover:border-green-900/30">
-                              <div><span className="text-green-300 font-bold">{inst.name}</span> <span className="text-green-700 ml-2">[{inst.ip_address || 'Pending_Alloc'}]</span></div>
-                              <div className="flex space-x-4 items-center">
-                                <span className="text-blue-500/70 text-[10px] uppercase tracking-widest">{inst.role || 'Standalone'}</span>
-                                <StatusBadge status={inst.state} />
-                                {auth.role==='admin' && (
-                                  <span className="flex space-x-1 border-l border-green-900/50 pl-4">
-                                    <button onClick={()=>handleAction('running', dep.deployment_id, inst.instance_id)} className="text-green-600 hover:text-green-300 px-1 border border-transparent hover:border-green-700">START</button>
-                                    <button onClick={()=>handleAction('stopped', dep.deployment_id, inst.instance_id)} className="text-red-600 hover:text-red-300 px-1 border border-transparent hover:border-red-700">STOP</button>
-                                  </span>
-                                )}
-                              </div>
-                            </div>
+                          {(dep.topology || []).map((node:any, j:number) => (
+                            <div
+  key={j}
+  className="mb-3 border border-[#222] bg-[#050505] p-3"
+>
+  <div className="flex justify-between items-center mb-2">
+    <div>
+      <div className="text-white font-bold uppercase">
+        {node.role}
+      </div>
+
+      <div className="text-blue-400 text-[10px]">
+        {node.ip}
+      </div>
+    </div>
+
+    <div className="text-green-500 font-bold">
+      ONLINE
+    </div>
+  </div>
+
+  <div className="mt-2">
+    <div className="text-[#666] text-[10px] mb-1">
+      SSH COMMAND
+    </div>
+
+    <div className="bg-black border border-[#333] p-2 text-green-400 break-all">
+      {node.ssh}
+    </div>
+
+    <button
+      onClick={() => navigator.clipboard.writeText(node.ssh)}
+      className="mt-2 px-2 py-1 border border-blue-900 text-blue-400 hover:bg-blue-900/20"
+    >
+      COPY_SSH
+    </button>
+  </div>
+</div>
                           ))}
                         </div>
                         <div className="flex-1 border border-green-900/50 p-4 bg-[#020202]">
@@ -360,9 +384,21 @@ function DeployPage({ auth }: any) {
         </div>
 
         <div className="p-4 border-t border-green-900 bg-[#050505] flex justify-end">
-          <button onClick={deploy} disabled={!isFormValid || running} className={`border px-8 py-3 tracking-widest font-bold text-xs transition-colors ${isFormValid && !running ? 'border-green-500 text-green-400 hover:bg-green-500 hover:text-black' : 'border-green-900/50 text-green-800 cursor-not-allowed'}`}>
-            {running ? 'EXECUTING_SYSCALL...' : 'EXECUTE_DEPLOYMENT'}
-          </button>
+          <button
+  onClick={deploy}
+  disabled={!isFormValid || running || deploymentId}
+  className={`border px-8 py-3 tracking-widest font-bold text-xs transition-colors ${
+    isFormValid && !running && !deploymentId
+      ? 'border-green-500 text-green-400 hover:bg-green-500 hover:text-black'
+      : 'border-green-900/50 text-green-800 cursor-not-allowed opacity-50'
+  }`}
+>
+  {running
+    ? 'EXECUTING_SYSCALL...'
+    : deploymentId
+    ? 'DEPLOYMENT_ACTIVE'
+    : 'EXECUTE_DEPLOYMENT'}
+</button>
         </div>
       </div>
 
