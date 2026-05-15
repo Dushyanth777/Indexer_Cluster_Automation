@@ -1,28 +1,290 @@
-# Splunk Indexer Cluster Automation Platform 🚀
+# CCM Splunk Orchestration Matrix
 
-A full-stack, enterprise-grade orchestration engine designed to automate the deployment, configuration, and management of Splunk Enterprise environments. This platform integrates with the Corporate Cloud Manager (CCM) API to provision cloud infrastructure and dynamically bootstraps Splunk Validated Architectures (SVAs) without manual SSH intervention.
+A full-stack Splunk deployment orchestration platform built using FastAPI and React.
 
-## ✨ Key Features
-* **Dynamic SVA Routing:** Automatically provisions Standalone (S1), standard Distributed Clusters (C3), or executes advanced manual clustering pipelines for high Replication Factor (RF > 3) environments.
-* **Real-Time Orchestration Terminal:** Streams deep OS-level and Splunk daemon execution logs directly to the UI via WebSockets.
-* **Zero-Touch Configuration:** Automatically injects `props.conf` and `transforms.conf` into dynamically generated Splunk Apps (`/opt/splunk/etc/apps/`) post-installation.
-* **Role-Based Access Control (RBAC):** Distinct `admin` (Root Access) and `user` workflows for secure infrastructure management and visibility.
-* **Intelligent Recommendation Engine:** Calculates estimated storage, CPU/RAM sizing, and node counts based on selected RF/SF parameters.
+This platform automates:
 
-## 🛠️ Tech Stack
-* **Frontend:** React, TypeScript, Vite, Tailwind CSS v4, Lucide Icons
-* **Backend:** Python, FastAPI, WebSockets, SQLAlchemy, SQLite
-* **Orchestration:** Paramiko (Async SSH), Requests (CCM API integration)
+* Standalone Splunk deployments
+* Distributed Splunk indexer cluster deployments
+* Cluster Manager configuration
+* Live deployment monitoring
+* ConfigMap injection (`props.conf`, `transforms.conf`)
+* Real-time websocket logs
+* Deployment termination and cleanup
 
 ---
 
-## ⚙️ Local Setup & Installation
+# Features
 
-### Prerequisites
-* [Node.js](https://nodejs.org/) (v18+)
-* [Python](https://www.python.org/downloads/) (v3.9+)
+## Backend
 
-### 1. Clone the Repository
+* FastAPI
+* JWT Authentication
+* WebSocket live logging
+* Async deployment orchestration
+* SSH automation using Paramiko
+* SQLite persistence
+* CCM API integration
+* Cluster validation
+* Config bundle deployment
+
+## Frontend
+
+* React
+* TailwindCSS
+* Live deployment dashboard
+* Real-time terminal logs
+* Deployment history
+* ConfigMap viewer
+* Deployment controls
+
+---
+
+# Tech Stack
+
+## Backend
+
+* Python
+* FastAPI
+* SQLAlchemy
+* Paramiko
+* HTTPX
+* SQLite
+
+## Frontend
+
+* React
+* Vite
+* TailwindCSS
+* Lucide Icons
+
+---
+
+# Project Structure
+
+```text
+splunk-ccm-ui/
+│
+├── ccm-backend/
+│   ├── main.py
+│   ├── .env
+│   └── ccm_system.db
+│
+├── public/
+├── src/
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+└── README.md
+```
+
+---
+
+# Backend Installation
+
+## 1. Create Virtual Environment
+
+### Windows
+
 ```bash
-git clone https://github.com/Dushyanth777/Indexer_Cluster_Automation.git
-cd Indexer_Cluster_Automation
+python -m venv .venv
+```
+
+Activate:
+
+```bash
+.venv\Scripts\activate
+```
+
+### Linux/macOS
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+# 2. Install Dependencies
+
+Install required Python packages:
+
+```bash
+pip install fastapi uvicorn sqlalchemy python-dotenv httpx paramiko passlib[bcrypt] bcrypt==4.0.1 PyJWT python-multipart
+```
+
+---
+
+# 3. Create Environment Variables
+
+Create:
+
+```text
+ccm-backend/.env
+```
+
+Add:
+
+```env
+CCM_BEARER_TOKEN=YOUR_CCM_API_TOKEN
+SPLUNK_ADMIN_PASSWORD=YourSplunkPassword
+JWT_SECRET=YourJWTSecret
+```
+
+---
+
+# 4. Start Backend
+
+```bash
+cd ccm-backend
+uvicorn main:app --reload
+```
+
+Backend runs on:
+
+```text
+http://localhost:8000
+```
+
+---
+
+# Frontend Installation
+
+## 1. Install Dependencies
+
+```bash
+npm install
+```
+
+Install required frontend packages:
+
+```bash
+npm install react react-dom lucide-react tailwindcss vite
+```
+
+---
+
+# 2. Start Frontend
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+# Authentication
+
+## Register
+
+Create a new user account using the registration screen.
+
+## Login
+
+Authenticate using JWT-based login.
+
+---
+
+# Deployment Modes
+
+## Standalone Mode
+
+Creates:
+
+* Single Splunk instance
+
+## Cluster Mode
+
+Creates:
+
+* 1 Cluster Manager
+* Multiple Indexers
+
+Example:
+
+```text
+RF = 3
+Creates:
+- 1 Cluster Manager
+- 3 Indexers
+```
+
+---
+
+# ConfigMap Injection
+
+Supports:
+
+## props.conf
+
+```ini
+[source::...]
+TRANSFORMS-routing = route_data
+```
+
+## transforms.conf
+
+```ini
+[route_data]
+REGEX = .
+DEST_KEY = _TCP_ROUTING
+FORMAT = idx_group
+```
+
+---
+
+# Live Logs
+
+Deployment logs are streamed in real-time using WebSockets.
+
+---
+
+# Stop Deployment
+
+The deployment stop API:
+
+* Cancels active orchestration tasks
+* Deletes CCM deployment
+* Terminates created instances
+* Stops websocket streaming
+* Updates deployment status
+
+---
+
+# Default Splunk Credentials
+
+```text
+Username: admin
+Password: value from SPLUNK_ADMIN_PASSWORD
+```
+
+---
+
+# SSH Access
+
+```bash
+ssh -i mykey.pem splunker@<INSTANCE_IP>
+```
+
+---
+
+# Recommended Versions
+
+| Component | Version |
+| --------- | ------- |
+| Python    | 3.11+   |
+| Node.js   | 20+     |
+| Splunk    | 9.4+    |
+| FastAPI   | Latest  |
+| React     | Latest  |
+
+---
+
+# License
+
+This project is intended for educational and infrastructure automation purposes.
