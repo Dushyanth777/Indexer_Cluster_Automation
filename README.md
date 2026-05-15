@@ -63,7 +63,7 @@ This platform automates:
 # Project Structure
 
 ```text
-splunk-ccm-ui/
+Indexer_Cluster_Automation/
 │
 ├── ccm-backend/
 │   ├── main.py
