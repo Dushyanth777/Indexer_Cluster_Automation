@@ -5,7 +5,11 @@ A full-stack Splunk deployment orchestration platform built using FastAPI and Re
 This platform automates:
 
 * Standalone Splunk deployments
+<<<<<<< HEAD
 * Distributed Splunk indexer clusters
+=======
+* Distributed Splunk indexer cluster deployments
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 * Cluster Manager configuration
 * Live deployment monitoring
 * ConfigMap injection (`props.conf`, `transforms.conf`)
@@ -32,14 +36,20 @@ This platform automates:
 
 * React
 * TailwindCSS
+<<<<<<< HEAD
 * Real-time deployment dashboard
 * Live terminal logs
+=======
+* Live deployment dashboard
+* Real-time terminal logs
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 * Deployment history
 * ConfigMap viewer
 * Deployment controls
 
 ---
 
+<<<<<<< HEAD
 # Project Structure
 
 ```text
@@ -56,12 +66,53 @@ ccm-automation/
 │   ├── package.json
 │   └── vite.config.js
 │
+=======
+# Tech Stack
+
+## Backend
+
+* Python
+* FastAPI
+* SQLAlchemy
+* Paramiko
+* HTTPX
+* SQLite
+
+## Frontend
+
+* React
+* Vite
+* TailwindCSS
+* Lucide Icons
+
+---
+
+# Project Structure
+
+```text
+Indexer_Cluster_Automation/
+│
+├── ccm-backend/
+│   ├── main.py
+│   ├── .env
+│   └── ccm_system.db
+│
+├── public/
+├── src/
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 └── README.md
 ```
 
 ---
 
+<<<<<<< HEAD
 # Backend Setup
+=======
+# Backend Installation
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 ## 1. Create Virtual Environment
 
@@ -88,6 +139,7 @@ source .venv/bin/activate
 
 # 2. Install Dependencies
 
+<<<<<<< HEAD
 Create `requirements.txt`
 
 ```txt
@@ -107,11 +159,21 @@ Install:
 
 ```bash
 pip install -r requirements.txt
+=======
+Install required Python packages:
+
+```bash
+pip install fastapi uvicorn sqlalchemy python-dotenv httpx paramiko passlib[bcrypt] bcrypt==4.0.1 PyJWT python-multipart
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 ```
 
 ---
 
+<<<<<<< HEAD
 # 3. Environment Variables
+=======
+# 3. Create Environment Variables
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 Create:
 
@@ -123,8 +185,13 @@ Add:
 
 ```env
 CCM_BEARER_TOKEN=YOUR_CCM_API_TOKEN
+<<<<<<< HEAD
 SPLUNK_ADMIN_PASSWORD=SplunkAdmin123
 JWT_SECRET=super_secure_random_secret
+=======
+SPLUNK_ADMIN_PASSWORD=YourSplunkPassword
+JWT_SECRET=YourJWTSecret
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 ```
 
 ---
@@ -144,11 +211,16 @@ http://localhost:8000
 
 ---
 
+<<<<<<< HEAD
 # Frontend Setup
+=======
+# Frontend Installation
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 ## 1. Install Dependencies
 
 ```bash
+<<<<<<< HEAD
 cd ccm-frontend
 npm install
 ```
@@ -160,6 +232,15 @@ npm install react react-dom
 npm install lucide-react
 npm install tailwindcss
 npm install vite
+=======
+npm install
+```
+
+Install required frontend packages:
+
+```bash
+npm install react react-dom lucide-react tailwindcss vite
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 ```
 
 ---
@@ -182,6 +263,7 @@ http://localhost:5173
 
 ## Register
 
+<<<<<<< HEAD
 ```http
 POST /api/auth/register
 ```
@@ -197,25 +279,43 @@ JWT tokens are automatically used for:
 * REST API authentication
 * WebSocket authentication
 * Deployment ownership validation
+=======
+Create a new user account using the registration screen.
+
+## Login
+
+Authenticate using JWT-based login.
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 ---
 
 # Deployment Modes
 
+<<<<<<< HEAD
 ## Standalone
+=======
+## Standalone Mode
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 Creates:
 
 * Single Splunk instance
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 ## Cluster Mode
 
 Creates:
 
 * 1 Cluster Manager
+<<<<<<< HEAD
 * Multiple indexers
+=======
+* Multiple Indexers
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 Example:
 
@@ -252,6 +352,7 @@ FORMAT = idx_group
 
 # Live Logs
 
+<<<<<<< HEAD
 Real-time deployment logs are streamed using WebSockets.
 
 Endpoint:
@@ -259,6 +360,9 @@ Endpoint:
 ```text
 /ws/logs/{deployment_id}
 ```
+=======
+Deployment logs are streamed in real-time using WebSockets.
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
 ---
 
@@ -266,12 +370,17 @@ Endpoint:
 
 The deployment stop API:
 
+<<<<<<< HEAD
 * Cancels active orchestration task
+=======
+* Cancels active orchestration tasks
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 * Deletes CCM deployment
 * Terminates created instances
 * Stops websocket streaming
 * Updates deployment status
 
+<<<<<<< HEAD
 Endpoint:
 
 ```http
@@ -308,6 +417,8 @@ DELETE /api/deployments/{dep_id}
 POST /api/deployments/{dep_id}/stop
 ```
 
+=======
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 ---
 
 # Default Splunk Credentials
@@ -327,6 +438,7 @@ ssh -i mykey.pem splunker@<INSTANCE_IP>
 
 ---
 
+<<<<<<< HEAD
 # Troubleshooting
 
 ## bcrypt Error
@@ -377,6 +489,8 @@ exists in websocket route.
 
 ---
 
+=======
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 # Recommended Versions
 
 | Component | Version |
@@ -389,6 +503,7 @@ exists in websocket route.
 
 ---
 
+<<<<<<< HEAD
 # Security Notes
 
 * JWT-protected APIs
@@ -412,6 +527,8 @@ exists in websocket route.
 
 ---
 
+=======
+>>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 # License
 
 This project is intended for educational and infrastructure automation purposes.
