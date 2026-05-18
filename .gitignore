@@ -34,3 +34,23 @@ ccm_system.db
 node_modules/
 dist/
 .DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Env
+.env
+
+# Database
+*.db
+
+# Node
+node_modules/
+
+# Build
+dist/
+
+# Logs
+*.log
