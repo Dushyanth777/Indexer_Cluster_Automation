@@ -1,122 +1,165 @@
-# CCM Splunk Orchestration Matrix
+# 🟢 Splunk CCM Orchestration Matrix 🚀
 
-A full-stack Splunk deployment orchestration platform built using FastAPI and React.
+![Python](https://img.shields.io/badge/Backend-Python_FastAPI-2b5b84?style=for-the-badge\&logo=python\&logoColor=white)
+![React](https://img.shields.io/badge/Frontend-React_TypeScript-61dafb?style=for-the-badge\&logo=react\&logoColor=black)
+![Splunk](https://img.shields.io/badge/Target-Splunk_Enterprise-000000?style=for-the-badge\&logo=splunk\&logoColor=white)
 
-This platform automates:
+A full-stack orchestration control plane designed to automate the deployment, configuration, and lifecycle management of Splunk Enterprise environments using the Corporate Cloud Manager (CCM) API.
+
+This platform provisions infrastructure, bootstraps Splunk clusters, securely injects ConfigMaps, validates deployments using `btool`, and streams live orchestration logs through authenticated WebSockets.
+
+---
+
+# ✨ Features
+
+## 🔐 Secure Authentication
+
+* JWT-based session authentication
+* Bcrypt password hashing
+* Role-Based Access Control (RBAC)
+* Protected API endpoints
+* Ownership validation for deployments
+
+---
+
+## ⚡ Real-Time Orchestration
+
+* Live deployment logs over WebSockets
+* Real-time SSH command streaming
+* Deployment stage tracking
+* Cluster stabilization monitoring
+* Splunk health validation loops
+
+---
+
+## 🏗️ Splunk Infrastructure Automation
+
+Supports:
 
 * Standalone Splunk deployments
-<<<<<<< HEAD
-* Distributed Splunk indexer clusters
-=======
-* Distributed Splunk indexer cluster deployments
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-* Cluster Manager configuration
-* Live deployment monitoring
-* ConfigMap injection (`props.conf`, `transforms.conf`)
-* Real-time websocket logs
-* Deployment termination and cleanup
+* Distributed Indexer Clusters
+* Cluster Manager bootstrapping
+* Indexer peer joining
+* Automated RF/SF validation
+* Automatic hostname assignment
 
 ---
 
-# Features
+## 📂 Secure ConfigMap Injection
 
-## Backend
+Securely pushes:
 
-* FastAPI
-* JWT Authentication
-* WebSocket live logging
-* Async deployment orchestration
-* SSH automation using Paramiko
-* SQLite persistence
-* CCM API integration
-* Cluster validation
-* Config bundle deployment
+* `props.conf`
+* `transforms.conf`
 
-## Frontend
+Features:
 
-* React
-* TailwindCSS
-<<<<<<< HEAD
-* Real-time deployment dashboard
-* Live terminal logs
-=======
+* SFTP-based secure upload engine
+* Automatic ownership correction
+* `btool` validation
+* Cluster bundle replication
+* Standalone restart orchestration
+
+---
+
+## 🌐 Operations Dashboard
+
 * Live deployment dashboard
-* Real-time terminal logs
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-* Deployment history
-* ConfigMap viewer
-* Deployment controls
+* Dynamic topology mapping
+* Start/Stop instance controls
+* Historical log replay
+* Live SSH access helper
+* Config repository management
 
 ---
 
-<<<<<<< HEAD
-# Project Structure
-
-```text
-ccm-automation/
-│
-├── ccm-backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── .env
-│   └── ccm_system.db
-│
-├── ccm-frontend/
-│   ├── src/
-│   ├── package.json
-│   └── vite.config.js
-│
-=======
-# Tech Stack
-
-## Backend
-
-* Python
-* FastAPI
-* SQLAlchemy
-* Paramiko
-* HTTPX
-* SQLite
-
-## Frontend
-
-* React
-* Vite
-* TailwindCSS
-* Lucide Icons
-
----
-
-# Project Structure
+# 📂 Project Structure
 
 ```text
 Indexer_Cluster_Automation/
 │
-├── ccm-backend/
-│   ├── main.py
-│   ├── .env
-│   └── ccm_system.db
+├── .venv/
 │
-├── public/
+├── ccm-backend/
+│   ├── .env
+│   ├── ccm_system.db
+│   └── main.py
+│
 ├── src/
+│   ├── assets/
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+│
 ├── package.json
-├── vite.config.js
+├── vite.config.ts
 ├── tailwind.config.js
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
+├── postcss.config.js
 └── README.md
 ```
 
 ---
 
-<<<<<<< HEAD
+# ⚙️ Backend Environment Setup
+
+Create:
+
+```bash
+ccm-backend/.env
+```
+
+Add:
+
+```env
+# CCM API TOKEN
+CCM_BEARER_TOKEN=YOUR_CCM_TOKEN
+
+# Splunk default admin password
+SPLUNK_ADMIN_PASSWORD=your_splunk_password
+
+# JWT signing secret
+JWT_SECRET=super-secure-random-secret
+
+# Comma-separated admin usernames
+ADMIN_USERS=admin,root
+
+# Allowed frontend origins
+CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+```
+
+---
+
+# ⚠️ Security Notes
+
+Never commit:
+
+* `.env`
+* `.pem`
+* `ccm_system.db`
+
+Add to `.gitignore`:
+
+```gitignore
+.env
+*.pem
+ccm_system.db
+.venv/
+node_modules/
+```
+
+---
+
+# 🚀 Installation
+
 # Backend Setup
-=======
-# Backend Installation
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
-## 1. Create Virtual Environment
+Open terminal:
 
-### Windows
+```bash
+cd ccm-backend
+```
+
+Create virtual environment:
 
 ```bash
 python -m venv .venv
@@ -124,86 +167,69 @@ python -m venv .venv
 
 Activate:
 
+## Windows
+
 ```bash
 .venv\Scripts\activate
 ```
 
-### Linux/macOS
+## Linux/macOS
 
 ```bash
-python3 -m venv .venv
 source .venv/bin/activate
 ```
 
----
+Install dependencies:
 
-# 2. Install Dependencies
-
-<<<<<<< HEAD
-Create `requirements.txt`
-
-```txt
-fastapi
-uvicorn
-sqlalchemy
-python-dotenv
-httpx
-paramiko
-passlib[bcrypt]
-bcrypt==4.0.1
-PyJWT
-python-multipart
+```bash
+pip install fastapi
+pip install "uvicorn[standard]"
+pip install sqlalchemy
+pip install python-dotenv
+pip install httpx
+pip install paramiko
+pip install pyjwt
+pip install "passlib[bcrypt]"
+pip install python-multipart
+pip install websockets
 ```
 
-Install:
+Run backend:
 
 ```bash
-pip install -r requirements.txt
-=======
-Install required Python packages:
-
-```bash
-pip install fastapi uvicorn sqlalchemy python-dotenv httpx paramiko passlib[bcrypt] bcrypt==4.0.1 PyJWT python-multipart
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
+uvicorn main:app --reload --port 8000
 ```
 
 ---
 
-<<<<<<< HEAD
-# 3. Environment Variables
-=======
-# 3. Create Environment Variables
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
+# Frontend Setup
 
-Create:
+Open another terminal:
+
+```bash
+cd Indexer_Cluster_Automation
+```
+
+Install dependencies:
+
+```bash
+npm install
+npm install react-router-dom lucide-react
+```
+
+Run frontend:
+
+```bash
+npm run dev
+```
+
+Frontend:
 
 ```text
-ccm-backend/.env
+http://localhost:5173
 ```
 
-Add:
-
-```env
-CCM_BEARER_TOKEN=YOUR_CCM_API_TOKEN
-<<<<<<< HEAD
-SPLUNK_ADMIN_PASSWORD=SplunkAdmin123
-JWT_SECRET=super_secure_random_secret
-=======
-SPLUNK_ADMIN_PASSWORD=YourSplunkPassword
-JWT_SECRET=YourJWTSecret
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-```
-
----
-
-# 4. Start Backend
-
-```bash
-cd ccm-backend
-uvicorn main:app --reload
-```
-
-Backend runs on:
+Backend:
 
 ```text
 http://localhost:8000
@@ -211,324 +237,223 @@ http://localhost:8000
 
 ---
 
-<<<<<<< HEAD
-# Frontend Setup
-=======
-# Frontend Installation
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
+# 🎮 Usage Guide
 
-## 1. Install Dependencies
+# 1. Authentication
 
-```bash
-<<<<<<< HEAD
-cd ccm-frontend
-npm install
-```
-
-Install required packages:
-
-```bash
-npm install react react-dom
-npm install lucide-react
-npm install tailwindcss
-npm install vite
-=======
-npm install
-```
-
-Install required frontend packages:
-
-```bash
-npm install react react-dom lucide-react tailwindcss vite
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-```
+* Register a user
+* Login to access dashboard
+* Admin usernames automatically receive elevated permissions
 
 ---
 
-# 2. Start Frontend
+# 2. Deploy Splunk Infrastructure
 
-```bash
-npm run dev
-```
-
-Frontend runs on:
+Navigate to:
 
 ```text
-http://localhost:5173
+Deploy Engine
+```
+
+Fill:
+
+* Workload Name
+* OS
+* Instance Type
+* SSH Key
+* TTL
+* Splunk Version
+
+Choose:
+
+* Standalone
+  OR
+* Distributed Cluster
+
+Upload:
+
+```text
+.pem key
+```
+
+Click:
+
+```text
+EXECUTE_DEPLOYMENT
 ```
 
 ---
 
-# Authentication
+# 3. Cluster Deployment Flow
 
-## Register
+The orchestrator automatically:
 
-<<<<<<< HEAD
-```http
-POST /api/auth/register
-```
-
-## Login
-
-```http
-POST /api/auth/login
-```
-
-JWT tokens are automatically used for:
-
-* REST API authentication
-* WebSocket authentication
-* Deployment ownership validation
-=======
-Create a new user account using the registration screen.
-
-## Login
-
-Authenticate using JWT-based login.
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
+1. Provisions infrastructure through CCM
+2. Waits for SSH availability
+3. Configures hostnames
+4. Initializes Cluster Manager
+5. Joins peer indexers
+6. Restarts Splunk
+7. Validates RF/SF
+8. Confirms cluster health
 
 ---
 
-# Deployment Modes
+# 4. ConfigMap Injection
 
-<<<<<<< HEAD
+Navigate to:
+
+```text
+ConfigMaps
+```
+
+Supported:
+
+* props.conf
+* transforms.conf
+
+Workflow:
+
+1. Save configs first
+2. Upload PEM key
+3. Apply configuration
+
+The platform:
+
+* Uploads configs securely through SFTP
+* Executes `btool` validation
+* Pushes cluster bundles
+* Restarts standalone instances if required
+
+---
+
+# 5. Dashboard Operations
+
+Dashboard features:
+
+* Live topology mapping
+* Instance status
+* SSH helper buttons
+* Splunk Web shortcuts
+* Deployment expansion
+* Live terminal viewer
+
+Admin users can:
+
+* START instances
+* STOP instances
+* SIGKILL deployments
+
+---
+
+# 📜 Execution History
+
+Execution History provides:
+
+* Full orchestration replay
+* SSH logs
+* Splunk bootstrap logs
+* Cluster validation logs
+* Config deployment history
+* Failure tracing
+
+---
+
+# 🧠 Core Technologies
+
+| Layer          | Technology         |
+| -------------- | ------------------ |
+| Frontend       | React + TypeScript |
+| Styling        | TailwindCSS        |
+| Backend        | FastAPI            |
+| Database       | SQLite             |
+| SSH Engine     | Paramiko           |
+| Auth           | JWT + Bcrypt       |
+| Real-Time Logs | WebSockets         |
+| Infra Provider | CCM API            |
+| Validation     | Splunk btool       |
+
+---
+
+# 🔄 Deployment Lifecycle
+
+```text
+INITIALIZING
+    ↓
+PROVISIONING
+    ↓
+WAITING_FOR_SSH
+    ↓
+BOOTSTRAPPING_CLUSTER
+    ↓
+VALIDATING_CLUSTER
+    ↓
+CONFIG_INJECTION
+    ↓
+COMPLETED
+```
+
+---
+
+# 🛠️ Supported Splunk Operations
+
 ## Standalone
-=======
-## Standalone Mode
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
 
-Creates:
+* Deployment
+* Restart
+* Config injection
+* Health checks
 
-* Single Splunk instance
+## Distributed Cluster
 
-<<<<<<< HEAD
----
-
-=======
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-## Cluster Mode
-
-Creates:
-
-* 1 Cluster Manager
-<<<<<<< HEAD
-* Multiple indexers
-=======
-* Multiple Indexers
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-
-Example:
-
-```text
-RF = 3
-Creates:
-- 1 Cluster Manager
-- 3 Indexers
-```
+* Cluster Manager bootstrap
+* Peer registration
+* RF/SF validation
+* Bundle replication
+* Peer validation
 
 ---
 
-# ConfigMap Injection
+# 🔍 Built-In Health Checks
 
-Supports:
+The orchestrator validates:
 
-## props.conf
-
-```ini
-[source::...]
-TRANSFORMS-routing = route_data
-```
-
-## transforms.conf
-
-```ini
-[route_data]
-REGEX = .
-DEST_KEY = _TCP_ROUTING
-FORMAT = idx_group
-```
+* SSH daemon availability
+* Splunk daemon state
+* Port `8089`
+* Cluster replication factor
+* Search factor
+* Indexing readiness
+* Bundle replication
 
 ---
 
-# Live Logs
+# 📡 WebSocket Logging System
 
-<<<<<<< HEAD
-Real-time deployment logs are streamed using WebSockets.
+The platform streams:
 
-Endpoint:
+* SSH command execution
+* Splunk stdout/stderr
+* Health validation
+* Cluster sync states
+* Config deployment logs
+* Runtime errors
 
-```text
-/ws/logs/{deployment_id}
-```
-=======
-Deployment logs are streamed in real-time using WebSockets.
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-
----
-
-# Stop Deployment
-
-The deployment stop API:
-
-<<<<<<< HEAD
-* Cancels active orchestration task
-=======
-* Cancels active orchestration tasks
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-* Deletes CCM deployment
-* Terminates created instances
-* Stops websocket streaming
-* Updates deployment status
-
-<<<<<<< HEAD
-Endpoint:
-
-```http
-POST /api/deployments/{dep_id}/stop
-```
+All logs are timestamped and categorized.
 
 ---
 
-# API Endpoints
+# 📌 Current Status
 
-## Deployments
+Current platform capabilities:
 
-### Create Deployment
-
-```http
-POST /api/deployments
-```
-
-### List Deployments
-
-```http
-GET /api/deployments
-```
-
-### Delete Deployment
-
-```http
-DELETE /api/deployments/{dep_id}
-```
-
-### Stop Deployment
-
-```http
-POST /api/deployments/{dep_id}/stop
-```
-
-=======
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
----
-
-# Default Splunk Credentials
-
-```text
-Username: admin
-Password: value from SPLUNK_ADMIN_PASSWORD
-```
+* Multi-user authentication
+* RBAC security
+* Real-time orchestration
+* Distributed Splunk clustering
+* Secure config deployment
+* Historical log replay
+* Live infrastructure control
 
 ---
 
-# SSH Access
-
-```bash
-ssh -i mykey.pem splunker@<INSTANCE_IP>
-```
-
----
-
-<<<<<<< HEAD
-# Troubleshooting
-
-## bcrypt Error
-
-```text
-AttributeError: module 'bcrypt' has no attribute '__about__'
-```
-
-Fix:
-
-```bash
-pip uninstall bcrypt
-pip install bcrypt==4.0.1
-```
-
----
-
-## JWT Error
-
-```text
-module 'jwt' has no attribute 'encode'
-```
-
-Fix:
-
-```bash
-pip uninstall jwt
-pip install PyJWT
-```
-
----
-
-## WebSocket Handshake Error
-
-```text
-ASGI callable returned without sending handshake
-```
-
-Fix:
-
-Ensure:
-
-```python
-await websocket.accept()
-```
-
-exists in websocket route.
-
----
-
-=======
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-# Recommended Versions
-
-| Component | Version |
-| --------- | ------- |
-| Python    | 3.11+   |
-| Node.js   | 20+     |
-| Splunk    | 9.4+    |
-| FastAPI   | Latest  |
-| React     | Latest  |
-
----
-
-<<<<<<< HEAD
-# Security Notes
-
-* JWT-protected APIs
-* WebSocket authentication
-* Deployment ownership validation
-* Sanitized app paths
-* Secure SSH orchestration
-* Deployment cleanup support
-
----
-
-# Future Improvements
-
-* Search Head Cluster support
-* Deployment Server integration
-* Monitoring Console deployment
-* App package uploads
-* Redis task queue
-* PostgreSQL support
-* RBAC enhancements
-
----
-
-=======
->>>>>>> 5801a0b963c1cdfad7fea56cb4837ca73a633f24
-# License
-
-This project is intended for educational and infrastructure automation purposes.
